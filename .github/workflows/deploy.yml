@@ -1,7 +1,7 @@
 name: Deploy to Heroku
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
     inputs:
       HEROKU_APP_NAME:
         description: "Heroku App name"
@@ -30,15 +30,13 @@ on:
       TELEGRAM_HASH:
         description: "Telegram HASH from https://my.telegram.org/"
         required: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout deploy branch
-        uses: 5hojib/heroku-deploy-action@v2
-        with:
-          ref: 'refs/heads/deploy'
-
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Deploy to Heroku
         uses: 5hojib/heroku-deploy-action@v2
         with:
