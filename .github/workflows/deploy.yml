@@ -1,5 +1,4 @@
 name: Deploy to Heroku
-name: Install Heroku CLI run: | curl https://cli-assets.heroku.com/install.sh | sh
 
 on:
   workflow_dispatch:
@@ -33,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout deploy branch
-        uses: actions/checkout@v2
+        uses: 5hojib/heroku-deploy-action@v2
         with:
           ref: 'refs/heads/deploy'
 
