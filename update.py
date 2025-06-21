@@ -63,7 +63,7 @@ if DATABASE_URL:
         environ['UPSTREAM_BRANCH'] = config_dict['UPSTREAM_BRANCH']
     conn.close()
 
-UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
+UPSTREAM_REPO = environ.get('UPSTREAM_REPO', 'https://github.com/aquib4040/AEON-PBX1')
 if len(UPSTREAM_REPO) == 0:
     UPSTREAM_REPO = 'https://github.com/5hojib/Aeon'
 
@@ -75,8 +75,8 @@ if path.exists('.git'):
     run(["rm", "-rf", ".git"])
 
 update = run([f"git init -q \
-                 && git config --global user.email yesiamshojib@gmail.com \
-                 && git config --global user.name 5hojib \
+                 && git config --global user.email mdaquibjawed1106@gmail.com \
+                 && git config --global user.name aquib4040 \
                  && git add . \
                  && git commit -sm update -q \
                  && git remote add origin {UPSTREAM_REPO} \
