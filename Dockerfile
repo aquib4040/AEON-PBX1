@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /usr/src/app
 
-# Install required system packages
+# Install necessary system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
     build-essential \
@@ -18,18 +18,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     xz-utils \
     libcap2-bin \
-    libxattr1 \
+    libattr1-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install dependencies
+# Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy the rest of the code
 COPY . .
 
-# Ensure start.sh is executable
+# Make start.sh executable
 RUN chmod +x start.sh
 
-# Run your app
+# Set the command
 CMD ["bash", "start.sh"]
