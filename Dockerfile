@@ -1,20 +1,35 @@
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /usr/src/app
 
-# Give full permissions (only do this if absolutely necessary — not ideal for production)
-RUN chmod 777 /usr/src/app
+# Install required system packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash \
+    build-essential \
+    gcc \
+    libffi-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    libjpeg-dev \
+    libmagic-dev \
+    python3-dev \
+    git \
+    xz-utils \
+    libcap2-bin \
+    libxattr1 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install system dependencies (e.g., bash if not available)
-RUN apt-get update && apt-get install -y bash && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
+# Copy requirements and install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Copy app files
+# Copy application code
 COPY . .
 
-# Set the default command
+# Ensure start.sh is executable
+RUN chmod +x start.sh
+
+# Run your app
 CMD ["bash", "start.sh"]
